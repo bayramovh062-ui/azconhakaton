@@ -1,0 +1,38 @@
+# AZMarine — one-click deploy on Render.com
+# https://render.com/docs/blueprint-spec
+#
+# Usage:
+#   1. Push this file to GitHub (already done).
+#   2. In Render: New + → Blueprint → connect this repo.
+#   3. Render will create the web service below automatically.
+#
+# After first deploy, copy the public URL and set the matching
+# Vercel env vars in the frontend project:
+#   VITE_API_BASE = https://azmarine-api.onrender.com
+#   VITE_WS_URL   = wss://azmarine-api.onrender.com/ws/fleet
+#
+services:
+  - type: web
+    name: azmarine-api
+    runtime: python
+    plan: free
+    region: frankfurt
+    branch: main
+    buildCommand: |
+      pip install -r backend/requirements.txt aiosqlite
+      python scripts/bootstrap_rich.py
+    startCommand: |
+      uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12"
+      - key: AZMARINE_DATABASE_URL
+        value: sqlite+aiosqlite:////opt/render/project/src/nexusaz.db
+      - key: AZMARINE_ENABLE_AIS_SIM
+        value: "true"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "1440"
