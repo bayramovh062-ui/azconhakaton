@@ -1,0 +1,5 @@
+SQLAlchemy>=2.0.30
+asyncpg>=0.29.0
+alembic>=1.13.0
+GeoAlchemy2>=0.15.0
+psycopg2-binary>=2.9.9   ; sys_platform != "darwin"  # optional sync driver for tooling

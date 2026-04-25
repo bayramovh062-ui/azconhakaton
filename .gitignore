@@ -1,0 +1,43 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.python-version
+
+# --- Node / Vite ---
+node_modules/
+dist/
+.vite/
+*.log
+
+# --- Local secrets / runtime ---
+.env
+.env.*
+!.env.example
+!.env.local.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# --- Local SQLite DB + pgserver data ---
+nexusaz.db
+nexusaz.db-journal
+nexusaz.db-wal
+nexusaz.db-shm
+.pgdata/
+
+# --- IDE / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+.windsurf/
+
+# --- Build artefacts ---
+build/
+out/
+coverage/
