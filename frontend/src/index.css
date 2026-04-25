@@ -1,0 +1,83 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #0f1629;
+  --bg-card: #141d35;
+  --border: #1e2d4a;
+  --accent-cyan: #00d4ff;
+  --accent-green: #00ff88;
+  --accent-red: #ff3d3d;
+  --accent-yellow: #ffd700;
+  --text-primary: #e8f0fe;
+  --text-muted: #6b7fa3;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: ''Inter'', system-ui, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0a0e1a; }
+::-webkit-scrollbar-thumb { background: #1e2d4a; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #2a3d63; }
+
+.leaflet-container { background: #0a0e1a !important; }
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #141d35 !important;
+  color: #e8f0fe !important;
+  border: 1px solid #1e2d4a !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+}
+.leaflet-popup-content { margin: 12px 14px !important; font-family: ''Inter'', sans-serif !important; }
+.leaflet-control-zoom a { background: #141d35 !important; color: #e8f0fe !important; border-color: #1e2d4a !important; }
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, rgba(30,45,74,0) 0%, rgba(30,45,74,0.6) 50%, rgba(30,45,74,0) 100%);
+  background-size: 800px 100%;
+}
+
+.glass {
+  background: rgba(20, 29, 53, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(30, 45, 74, 0.8);
+}
+
+.status-dot { width: 8px; height: 8px; border-radius: 9999px; display: inline-block; }
+
+.vessel-pulse {
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 61, 61, 0.7);
+  animation: pulseRing 1.6s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
