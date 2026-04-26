@@ -20,15 +20,16 @@ services:
     branch: main
     buildCommand: |
       pip install -r backend/requirements.txt aiosqlite
-      python scripts/bootstrap_rich.py
+    # Render free tier has an ephemeral filesystem: every cold-start wipes the
+    # SQLite DB. Re-seed on every start so the demo dataset always exists.
     startCommand: |
-      uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+      python scripts/bootstrap_rich.py && uvicorn backend.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
     autoDeploy: true
     envVars:
       - key: PYTHON_VERSION
         value: "3.12"
-      - key: AZMARINE_DATABASE_URL
+      - key: DATABASE_URL
         value: sqlite+aiosqlite:////opt/render/project/src/nexusaz.db
       - key: AZMARINE_ENABLE_AIS_SIM
         value: "true"
