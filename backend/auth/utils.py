@@ -28,13 +28,21 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login", auto_error=False)
 # Password hashing
 # ---------------------------------------------------------------------------
 
+def _truncate_for_bcrypt(password: str) -> str:
+    """bcrypt has a hard 72-byte limit; truncate explicitly to avoid ValueError."""
+    encoded = password.encode("utf-8")
+    if len(encoded) <= 72:
+        return password
+    return encoded[:72].decode("utf-8", errors="ignore")
+
+
 def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
+    return pwd_context.hash(_truncate_for_bcrypt(password))
 
 
 def verify_password(plain: str, hashed: str) -> bool:
     try:
-        return pwd_context.verify(plain, hashed)
+        return pwd_context.verify(_truncate_for_bcrypt(plain), hashed)
     except Exception:
         return False
 
